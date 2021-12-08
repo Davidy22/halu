@@ -59,6 +59,7 @@ class Halo(object):
         interval=-1,
         enabled=True,
         stream=sys.stdout,
+        indent="",
     ):
         """Constructs the Halo object.
         Parameters
@@ -116,6 +117,7 @@ class Halo(object):
         self._stop_spinner = None
         self._spinner_id = None
         self.enabled = enabled
+        self.indent = indent
         self._stopped = False
         self._content = ""
 
@@ -569,7 +571,8 @@ class Halo(object):
         self._frame_index = self._frame_index % len(frames)
 
         text_frame = self.text_frame()
-        return "{0} {1}".format(
+        return "{0}{1} {2}".format(
+            self.indent,
             *[
                 (text_frame, frame)
                 if self._placement == "right"
@@ -741,7 +744,8 @@ class Halo(object):
 
         self.stop()
 
-        output = "{0} {1}\n".format(
+        output = "{0}{1} {2}\n".format(
+            self.indent,
             *[(text, symbol) if self._placement == "right" else (symbol, text)][0]
         )
 
