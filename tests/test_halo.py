@@ -160,7 +160,7 @@ class TestHalo(unittest.TestCase):
 
         pattern = re.compile(r'(✔|v) foo', re.UNICODE)
 
-        self.assertRegexpMatches(output[-1], pattern)
+        self.assertRegex(output[-1], pattern)
 
     def test_text_ellipsing(self):
         """Test the text gets ellipsed if it's too long
@@ -187,7 +187,7 @@ class TestHalo(unittest.TestCase):
 
         pattern = re.compile(r'(✔|v) End!', re.UNICODE)
 
-        self.assertRegexpMatches(output[-1], pattern)
+        self.assertRegex(output[-1], pattern)
 
     def test_text_animation(self):
         """Test the text gets animated when it is too long
@@ -214,7 +214,7 @@ class TestHalo(unittest.TestCase):
 
         pattern = re.compile(r'(✔|v) End!', re.UNICODE)
 
-        self.assertRegexpMatches(output[-1], pattern)
+        self.assertRegex(output[-1], pattern)
 
     def test_context_manager(self):
         """Test the basic of basic spinners used through the with statement.
@@ -305,7 +305,7 @@ class TestHalo(unittest.TestCase):
         output = self._get_test_output()['text']
         pattern = re.compile(r'(✔|v) foo', re.UNICODE)
 
-        self.assertRegexpMatches(output[-1], pattern)
+        self.assertRegex(output[-1], pattern)
         spinner.stop()
 
     def test_succeed_with_new_text(self):
@@ -318,7 +318,7 @@ class TestHalo(unittest.TestCase):
         output = self._get_test_output()['text']
         pattern = re.compile(r'(✔|v) bar', re.UNICODE)
 
-        self.assertRegexpMatches(output[-1], pattern)
+        self.assertRegex(output[-1], pattern)
         spinner.stop()
 
     def test_info(self):
@@ -331,7 +331,7 @@ class TestHalo(unittest.TestCase):
         output = self._get_test_output()['text']
         pattern = re.compile(r'(ℹ|¡) foo', re.UNICODE)
 
-        self.assertRegexpMatches(output[-1], pattern)
+        self.assertRegex(output[-1], pattern)
         spinner.stop()
 
     def test_fail(self):
@@ -344,7 +344,7 @@ class TestHalo(unittest.TestCase):
         output = self._get_test_output()['text']
         pattern = re.compile(r'(✖|×) foo', re.UNICODE)
 
-        self.assertRegexpMatches(output[-1], pattern)
+        self.assertRegex(output[-1], pattern)
         spinner.stop()
 
     def test_warning(self):
@@ -357,7 +357,7 @@ class TestHalo(unittest.TestCase):
         output = self._get_test_output()['text']
         pattern = re.compile(r'(⚠|!!) Warning!', re.UNICODE)
 
-        self.assertRegexpMatches(output[-1], pattern)
+        self.assertRegex(output[-1], pattern)
         spinner.stop()
 
     def test_spinner_getters_setters(self):
@@ -552,7 +552,7 @@ class TestHalo(unittest.TestCase):
         pattern = re.compile(r"(✔|v)", re.UNICODE)
 
         self.assertEqual(text, 'foo')
-        self.assertRegexpMatches(symbol, pattern)
+        self.assertRegex(symbol, pattern)
         spinner.stop()
 
     def test_bounce_animation(self):
@@ -591,14 +591,14 @@ class TestHalo(unittest.TestCase):
         zipped_expected_and_actual_frame = zip(expected_frames, output)
         for multiple_frames in zipped_expected_and_actual_frame:
             expected_frame, actual_frame = multiple_frames
-            self.assertEquals(expected_frame, actual_frame)
+            self.assertEqual(expected_frame, actual_frame)
 
     def test_animation_setter(self):
         spinner = Halo("Asdf")
         spinner.animation = "bounce"
-        self.assertEquals("bounce", spinner.animation)
+        self.assertEqual("bounce", spinner.animation)
         spinner.animation = "marquee"
-        self.assertEquals("marquee", spinner.animation)
+        self.assertEqual("marquee", spinner.animation)
 
     def test_spinner_color(self):
         """Test ANSI escape characters are present
@@ -613,7 +613,7 @@ class TestHalo(unittest.TestCase):
             output = self._get_test_output(no_ansi=False)
             output_merged = [arr for c in output['colors'] for arr in c]
 
-            self.assertEquals(str(color_int) in output_merged, True)
+            self.assertEqual(str(color_int) in output_merged, True)
 
     def test_redirect_stdout(self):
         """Test redirect stdout
