@@ -88,12 +88,14 @@ class Halo(object):
         """
 
         # To reset Values in deleter
-        self.reset_values = {"text": text,
-                             "color": color,
-                             "text_color": text_color,
-                             "spinner": spinner,
-                             "animation": animation,
-                             "placement": placement, }
+        self.reset_values = {
+            "text": text,
+            "color": color,
+            "text_color": text_color,
+            "spinner": spinner,
+            "animation": animation,
+            "placement": placement,
+        }
 
         self._symbol = "  "
         self._stop_persist = False
@@ -170,30 +172,32 @@ class Halo(object):
             f (callable): the function which supposed to be in a loop
         """
         if "halo_iter" in kwargs:
-            if type(kwargs['halo_iter']) in [list, tuple, dict]:
-                main_text = self.text   # text have curl-brackets like
+            if type(kwargs["halo_iter"]) in [list, tuple, dict]:
+                main_text = self.text  # text have curl-brackets like
                 # 'This is task {number}'
-                curl_brackets = re.findall(
-                    r'\{([^\s\{\}]+)\}', main_text)
+                curl_brackets = re.findall(r"\{([^\s\{\}]+)\}", main_text)
                 results = []  # store all return f(*args, **kwargs) in loop
-                for text in kwargs['halo_iter']:
-                    #* type(text) is str in single curl-bracket 
-                    #* or list[str] in multiple curl-brackets
-                    text_dict = dict(list(zip(curl_brackets, text))) if len(
-                        curl_brackets) > 1 else dict([(curl_brackets[0], text)])
+                for text in kwargs["halo_iter"]:
+                    # * type(text) is str in single curl-bracket
+                    # * or list[str] in multiple curl-brackets
+                    text_dict = (
+                        dict(list(zip(curl_brackets, text)))
+                        if len(curl_brackets) > 1
+                        else dict([(curl_brackets[0], text)])
+                    )
 
                     self.text = main_text.format(**text_dict)
                     results.append(f(*args, **kwargs))
 
-            if 'stop_text' in kwargs:
+            if "stop_text" in kwargs:
                 self._stop_persist = True
-                self.text = kwargs['stop_text']
+                self.text = kwargs["stop_text"]
 
-            if 'stop_symbol' in kwargs:
+            if "stop_symbol" in kwargs:
                 self._stop_persist = True
-                self._symbol = kwargs['stop_symbol']
+                self._symbol = kwargs["stop_symbol"]
             else:
-                self._symbol = '  '
+                self._symbol = "  "
 
             return results
 
@@ -225,8 +229,7 @@ class Halo(object):
 
     @spinner.deleter
     def spinner(self):
-        """set spinner to None when delete spinner is
-        """
+        """set spinner to None when delete spinner is"""
         self._spinner = self.reset_values["spinner"]
 
     @property
@@ -468,7 +471,11 @@ class Halo(object):
             return spinner
 
         if is_supported():
-            return Spinners[spinner].value if all([is_text_type(spinner), spinner in Spinners.__members__]) else default_spinner
+            return (
+                Spinners[spinner].value
+                if all([is_text_type(spinner), spinner in Spinners.__members__])
+                else default_spinner
+            )
         else:
             return Spinners["line"].value
 
@@ -490,7 +497,9 @@ class Halo(object):
         # Subtract from the current terminal size the max spinner length
         # (-1 to leave room for the extra space between spinner and text)
         terminal_width = get_terminal_columns() - max_spinner_length - 1
-        text_length = len(stripped_text()) if hasattr(text, '__call__') else len(stripped_text)
+        text_length = (
+            len(stripped_text()) if hasattr(text, "__call__") else len(stripped_text)
+        )
 
         frames = []
 
@@ -500,27 +509,29 @@ class Halo(object):
                 Make the text bounce back and forth
                 """
                 for x in range(0, text_length - terminal_width + 1):
-                    if hasattr(text, '__call__'):
-                        frame = stripped_text()[x: terminal_width + x]
+                    if hasattr(text, "__call__"):
+                        frame = stripped_text()[x : terminal_width + x]
                     else:
-                        frame = stripped_text[x: terminal_width + x]
+                        frame = stripped_text[x : terminal_width + x]
                     frames.append(frame)
                 frames.extend(list(reversed(frames)))
             elif "marquee":
                 """
                 Make the text scroll like a marquee
                 """
-                if hasattr(text, '__call__'):
-                    new_stripped_text = lambda: stripped_text() + " " + stripped_text()[:terminal_width]
+                if hasattr(text, "__call__"):
+                    new_stripped_text = (
+                        lambda: stripped_text() + " " + stripped_text()[:terminal_width]
+                    )
                     for x in range(0, text_length + 1):
-                        frames.append(new_stripped_text()[x: terminal_width + x])
+                        frames.append(new_stripped_text()[x : terminal_width + x])
                 else:
                     stripped_text = stripped_text + " " + stripped_text[:terminal_width]
                     for x in range(0, text_length + 1):
-                        frames.append(stripped_text[x: terminal_width + x])
+                        frames.append(stripped_text[x : terminal_width + x])
         elif terminal_width < text_length and not animation:
             # Add ellipsis if text is larger than terminal width and no animation was specified
-            if hasattr(text, '__call__'):
+            if hasattr(text, "__call__"):
                 frames = [lambda: stripped_text()[: terminal_width - 6] + " (...)"]
             else:
                 frames = [stripped_text[: terminal_width - 6] + " (...)"]
@@ -602,7 +613,7 @@ class Halo(object):
         """
         if len(self._text["frames"]) == 1:
             frame = self._text["frames"][0]
-            if hasattr(frame, '__call__'):
+            if hasattr(frame, "__call__"):
                 frame = frame()
             if self._text_color:
                 return colored_frame(frame, self._text_color)
@@ -612,7 +623,7 @@ class Halo(object):
 
         frames = self._text["frames"]
         frame = frames[self._text_index]
-        if hasattr(frame, '__call__'):
+        if hasattr(frame, "__call__"):
             frame = frame()
 
         self._text_index += 1

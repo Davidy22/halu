@@ -14,6 +14,6 @@ import sys
 
 spinner = Halo(stream=sys.stderr)
 
-spinner.start('Loading')
+spinner.start("Loading")
 time.sleep(1)
 spinner.stop()

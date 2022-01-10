@@ -14,12 +14,12 @@ except ImportError:
 from termcolor import colored
 
 
-IS_WIN = any(sys.platform.startswith(i) for i in ['win32', 'cygwin'])
+IS_WIN = any(sys.platform.startswith(i) for i in ["win32", "cygwin"])
 
 if IS_WIN:
     import colorama
-    colorama.init(autoreset=True)
 
+    colorama.init(autoreset=True)
 
 
 def is_supported():
@@ -33,8 +33,7 @@ def is_supported():
 
     os_arch = platform.system()
 
-    return True if os_arch != 'Windows' else False
-
+    return True if os_arch != "Windows" else False
 
 
 def get_environment():
@@ -47,18 +46,18 @@ def get_environment():
     """
     try:
         from IPython import get_ipython
-        
+
         shell = get_ipython().__class__.__name__
 
-        if shell == 'ZMQInteractiveShell':  # Jupyter notebook or qtconsole
-            return 'jupyter'
-        elif shell == 'TerminalInteractiveShell':  # Terminal running IPython
-            return 'ipython'
+        if shell == "ZMQInteractiveShell":  # Jupyter notebook or qtconsole
+            return "jupyter"
+        elif shell == "TerminalInteractiveShell":  # Terminal running IPython
+            return "ipython"
         else:
-            return 'terminal'  # Other type (?)
+            return "terminal"  # Other type (?)
 
     except (ImportError, NameError):
-        return 'terminal'
+        return "terminal"
 
 
 def colored_frame(frame, color):
@@ -76,7 +75,7 @@ def colored_frame(frame, color):
     str
         Colored frame
     """
-    return colored(frame, color, attrs=['bold'])
+    return colored(frame, color, attrs=["bold"])
 
 
 def is_text_type(text):
@@ -109,7 +108,7 @@ def decode_utf_8_text(text):
         Decoded string
     """
     try:
-        return codecs.decode(text, 'utf-8')
+        return codecs.decode(text, "utf-8")
     except (TypeError, ValueError):
         return text
 
@@ -128,7 +127,7 @@ def encode_utf_8_text(text):
         Encoded string
     """
     try:
-        return codecs.encode(text, 'utf-8', 'ignore')
+        return codecs.encode(text, "utf-8", "ignore")
     except (TypeError, ValueError):
         return text
 

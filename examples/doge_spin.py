@@ -10,17 +10,17 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from halo import Halo
 
-spinner = Halo(text='Such Spins', spinner='dots')
+spinner = Halo(text="Such Spins", spinner="dots")
 
 try:
     spinner.start()
     time.sleep(2)
-    spinner.text = 'Much Colors'
-    spinner.color = 'magenta'
+    spinner.text = "Much Colors"
+    spinner.color = "magenta"
     time.sleep(2)
-    spinner.text = 'Very emojis'
-    spinner.spinner = 'hearts'
+    spinner.text = "Very emojis"
+    spinner.spinner = "hearts"
     time.sleep(2)
-    spinner.stop_and_persist(symbol='🦄'.encode('utf-8'), text='Wow!')
+    spinner.stop_and_persist(symbol="🦄".encode("utf-8"), text="Wow!")
 except (KeyboardInterrupt, SystemExit):
     spinner.stop()

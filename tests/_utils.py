@@ -17,8 +17,8 @@ def strip_ansi(string):
     str
         Encoding free string
     """
-    pattern = r'(\x1b\[|\x9b)[^@-_]*[@-_]|\x1b[@-_]'
-    return re.sub(pattern, '', string, flags=re.I)
+    pattern = r"(\x1b\[|\x9b)[^@-_]*[@-_]|\x1b[@-_]"
+    return re.sub(pattern, "", string, flags=re.I)
 
 
 def find_colors(string):
@@ -34,7 +34,7 @@ def find_colors(string):
     str
         List of found colors
     """
-    return re.findall(r'\[\d\dm', string, flags=re.I)
+    return re.findall(r"\[\d\dm", string, flags=re.I)
 
 
 def decode_utf_8_text(text):
@@ -51,7 +51,7 @@ def decode_utf_8_text(text):
         Decoded text
     """
     try:
-        return codecs.decode(text, 'utf-8')
+        return codecs.decode(text, "utf-8")
     except (TypeError, ValueError):
         return text
 
@@ -70,6 +70,6 @@ def encode_utf_8_text(text):
         Encoded text
     """
     try:
-        return codecs.encode(text, 'utf-8')
+        return codecs.encode(text, "utf-8")
     except (TypeError, ValueError):
         return text

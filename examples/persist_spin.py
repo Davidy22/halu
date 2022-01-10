@@ -10,11 +10,11 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from halo import Halo
 
-success_message = 'Loading success'
-failed_message = 'Loading failed'
-unicorn_message = 'Loading unicorn'
+success_message = "Loading success"
+failed_message = "Loading failed"
+unicorn_message = "Loading unicorn"
 
-spinner = Halo(text=success_message, spinner='dots')
+spinner = Halo(text=success_message, spinner="dots")
 
 try:
     spinner.start()
@@ -25,6 +25,6 @@ try:
     spinner.fail()
     spinner.start(unicorn_message)
     time.sleep(1)
-    spinner.stop_and_persist(symbol='🦄'.encode('utf-8'), text=unicorn_message)
+    spinner.stop_and_persist(symbol="🦄".encode("utf-8"), text=unicorn_message)
 except (KeyboardInterrupt, SystemExit):
     spinner.stop()

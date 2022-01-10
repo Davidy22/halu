@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-__author__ = 'Manraj Singh'
-__email__ = 'manrajsinghgrover@gmail.com'
+__author__ = "Manraj Singh"
+__email__ = "manrajsinghgrover@gmail.com"
 
 all = ["cursor.py", "halo_notebook.py", "halo.py"]
 
